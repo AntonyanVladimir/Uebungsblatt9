@@ -16,27 +16,42 @@
             <option value="/">div</option>
         </select>
         <input type="text" id="value2" value="45"><span>  =  </span> <span id="ergebnis"></span>
-        <button class="btns btn-primary" onclick="berechnen()">Berechnen</button>
+        <button class="btns btn-primary" id="button">Berechnen</button>
     </div>
     <script>
-      
-            function berechnen() {
-                    var request;
+        var request;
 
-                    request = new XMLHttpRequest();
+          request = new XMLHttpRequest();
 
-                    let value1 = document.getElementById('value1').value;
-                    let value2 = document.getElementById('value2').value;
-                    let e = document.getElementById('options');
-                    let option = e.options[e.selectedIndex].text;
-                    request.open('GET', `http://localhost:4500/${option}/${value1}/${value2}`, true)
-                    request.onload = function () {
-                        document.getElementById('ergebnis').innerHTML = request.responseText;
-                        console.log(request.responseText);
-                    }
-                    request.send();
+         
+      $(document).ready(function(){
+          $('#button').click(()=>{
+            let value1 = $('#value1').val();
+          let value2 = $('#value2').val();
+          let e = document.getElementById('options');
+          let option = e.options[e.selectedIndex].text;
+              $.get(`http://localhost:4500/${option}/${value1}/${value2}`, function(data, status){
+                $('#ergebnis').html(data); 
+              })
+          })
+      })
+            // function berechnen() {
+            //         var request;
 
-                }
+            //         request = new XMLHttpRequest();
+
+            //         let value1 = document.getElementById('value1').value;
+            //         let value2 = document.getElementById('value2').value;
+            //         let e = document.getElementById('options');
+            //         let option = e.options[e.selectedIndex].text;
+            //         request.open('GET', `http://localhost:4500/${option}/${value1}/${value2}`, true)
+            //         request.onload = function () {
+            //             document.getElementById('ergebnis').innerHTML = request.responseText;
+            //             console.log(request.responseText);
+            //         }
+            //         request.send();
+
+            //     }
     </script>
     
 </body>
